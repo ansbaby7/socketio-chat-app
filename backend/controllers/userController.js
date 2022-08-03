@@ -56,4 +56,16 @@ const loginUser = async (req,res,next) => {
     }
 }
 
-module.exports = {registerUser,loginUser}
+// fetch all users except the user corresponding to the id passed in request
+const getAllUsers = async (req,res,next) => {
+    try {
+        const allUsers =  await User.find({_id: { $ne : req.params.id} }).select([
+            "_id","username","email"
+        ])
+        return res.status(200).json(allUsers)
+    } catch(ex) {
+        next(ex)
+    }
+}
+
+module.exports = {registerUser,loginUser,getAllUsers}
