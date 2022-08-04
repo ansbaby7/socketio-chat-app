@@ -31,11 +31,15 @@ const Chat = () => {
     }
 
     return <div className="h-screen w-screen flex flex-col justify-center items-center gap-4 bg-cyan-900">
-        <div className="h-[85vh] w-[85vw] bg-slate-400 grid grid-cols-2">
+        <div className="h-[85vh] w-[85vw] bg-red-800 grid grid-cols-4">
+            {/* <div className="col-span-1"> */}
             <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
+            {/* </div> */}
+            {/* <div className="col-span-3"> */}
             {currentChat === undefined? 
                 <Welcome currentUser={currentUser}/> : <ChatContainer currentUser={currentUser} currentChat={currentChat} />
             }
+            {/* </div> */}
         </div>
     </div>
 }

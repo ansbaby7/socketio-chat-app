@@ -9,16 +9,16 @@ const ChatInput = ({handleMessageSend}) => {
             setMsg("");
         }
     }
-    return <div className="container grid items-center grid-cols-20 bg-slate-700 px-0 py-2">
-        <div className="col-span-1 flex items-center text-white gap-4">
+    return <div className="container row-span-1 grid place-items-center grid-cols-[20] bg-slate-700 py-0 px-8">
+        <div className="col-span-8 flex items-center text-white gap-4">
             <div>
 
             </div>
         </div>
-        <form onSubmit={sendMsg} className="col-span-19 w-full border rounded-[2rem] bg-gray-200">
+        <form onSubmit={sendMsg} className="col-span-12 w-full border rounded-[2rem] flex items-center gap-8 bg-gray-200">
             <input type="text" placeholder="type your message here" value={msg} onChange={(e) => setMsg(e.target.value)}
-                className="w-[90%] height-[60%] bg-transparent text-white border-none pl-4 text-[1.2rem] selection:bg-red-500 focus:outline-none"/>
-            <button type="submit" className="py-[0.3rem] px-8 rounded-[2rem]flex justify-center items-center bg-slate-700 border-none">
+                className="w-[90%] h-[60%] bg-transparent text-gray-800 border-none pl-4 text-[1.2rem] selection:bg-red-500 focus:outline-none"/>
+            <button type="submit" className="py-[0.3rem] px-8 rounded-[2rem] flex justify-center items-center bg-purple-700 text-slate-200 border-none">
                 SEND
             </button>
         </form>

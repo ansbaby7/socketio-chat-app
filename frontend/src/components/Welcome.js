@@ -9,7 +9,7 @@ const Welcome = ({currentUser}) => {
 
         getUserName();
      },[username])
-    return  <div className="flex flex-col bg-gray-800 justify-center items-center">
+    return  <div className="col-span-3 flex flex-col bg-gray-800 justify-center items-center">
             {/* <h1>Welcome, <span className="text-violet-600">{currentUser.username}</span></h1> */}
             <h1 className="text-gray-300">Welcome, <span className="text-violet-400">{username}</span></h1>
             <h3 className="text-gray-300">Please select a contact to start chatting</h3>

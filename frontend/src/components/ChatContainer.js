@@ -41,15 +41,15 @@ const ChatContainer =  ({currentUser, currentChat}) => {
     },[arrivalMessage])
 
 
-    return <div>
+    return <div className="col-span-3">
         {currentChat && 
-        <div className="container grid grid-cols-10 gap-[0.1rem] overflow-hidden ">
-            <div className="col-span-1 flex justify-center items-center py-0 px-8">
+        <div className="h-full container grid grid-rows-6 gap-[0.1rem] overflow-hidden ">
+            <div className="row-span-1 flex justify-between items-center py-0 px-8">
                 <div className="flex items-center gap-4">
                     <div>
 
                     </div>
-                    <div>
+                    <div className="bg-slate-700 px-8 py-6">
                         <h3 className="text-white">{currentChat.username}</h3>
                     </div>
                 </div>
@@ -58,11 +58,11 @@ const ChatContainer =  ({currentUser, currentChat}) => {
 
             </div>
 
-            <div className="col-span-8">
+            <div className="row-span-4 py-4 px-8 flex flex-col gap-4 overflow-auto">
                 {messages.map((message,index) => {
-                    return <div key={index} className = {`py-4 px-8 flex flex-col gap-4 overflow-auto ${message.fromSelf?"justify-end":"justify-start"}`}>
-                        <div>
-                            <div className={`max-w-[40%] break-words p-4 text-[1.1rem] rounded-[1rem] text-green-300 ${message.fromSelf?"bg-red-400":"bg-green-400"}`}>
+                    return <div key={index}>   
+                        <div className={`message flex items-center ${message.fromSelf?"justify-end":"justify-start"} `}>
+                            <div className={`max-w-[40%] break-words p-4 text-[1.1rem] rounded-[1rem] text-gray-200 ${message.fromSelf?"bg-red-500":"bg-green-500"}`}>
                                 <p>{message.message}</p>
                             </div>
                         </div>
@@ -70,9 +70,9 @@ const ChatContainer =  ({currentUser, currentChat}) => {
                 })}
             </div>
 
-            <div className="col-span-1">
+            {/* <div className="col-span-1"> */}
                 <ChatInput handleMessageSend={handleMessageSend}/>
-            </div>
+            {/* </div> */}
         </div>
             }
     </div>
