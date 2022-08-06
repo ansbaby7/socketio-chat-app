@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios"
 import { registerRoute } from "../utils/apiRoutes";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 const Register = () => {
 
@@ -13,6 +13,12 @@ const Register = () => {
     password: "",
     confirmPassword: ""
   })
+
+  useEffect(()=>{
+    if(localStorage.getItem("chat-user")){
+      navigate("/")
+    }
+  },[])
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -104,6 +110,10 @@ const Register = () => {
                 </button>
             </div>
           </div>
+
+          <div className="text-center text-gray-200 text-lg">
+              <p>Already registered ? Login <Link to="/login" className="text-yellow-300">here</Link></p>
+            </div>
         </form>
       </div>
     </div>

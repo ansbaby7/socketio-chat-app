@@ -7,36 +7,38 @@ import {
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
-import { useEffect, useState } from "react";
 
 const App = () => {
 
-  const [user,setUser] = useState(null)
+  // const [user,setUser] = useState(null)
 
-  useEffect(() => {
-    const setUserFunction = async () => {
-      const user = await JSON.parse(localStorage.getItem("chat-user"))
-      //setUser(await JSON.parse(localStorage.getItem("chat-user")))
-      setUser(user)
-      console.log(user)
-    }
+  // useEffect(() => {
+  //   const setUserFunction = async () => {
+  //     const user = await JSON.parse(localStorage.getItem("chat-user"))
+  //     //setUser(await JSON.parse(localStorage.getItem("chat-user")))
+  //     setUser(user)
+  //     console.log(user)
+  //   }
 
-    setUserFunction();
+  //   setUserFunction();
     
-  },[]);
+  // },[]);
 
 
   return ( <Router>
       <Routes>
-        <Route
+        {/* <Route
           path="/register"
           element={!user ? <Register /> : <Navigate to="/" />}
-        />
-        <Route
+        /> */}
+        <Route path="/register" element={<Register/>} />
+        {/* <Route
           path="/login"
           element={!user ? <Login /> : <Navigate to="/" />}
-        />
-        <Route path="/" element={user ? <Chat currentUser={user} /> : <Navigate to="/login" />} />
+        /> */}
+        <Route path="/login" element={<Login/>} />
+        {/* <Route path="/" element={user ? <Chat currentUser={user} /> : <Navigate to="/login" />} /> */}
+        <Route path="/" element={<Chat/>} />
 
       </Routes>
     </Router>

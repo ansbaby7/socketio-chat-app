@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {Link, useNavigate } from "react-router-dom";
 import { loginRoute } from "../utils/apiRoutes";
 
 
@@ -13,11 +13,11 @@ const Login = () => {
     password:""
   })
 
-  // useEffect(()=>{
-  //   if(localStorage.getItem("chat-user")){
-  //     navigate("/")
-  //   }
-  // },[])
+  useEffect(()=>{
+    if(localStorage.getItem("chat-user")){
+      navigate("/")
+    }
+  },[])
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -88,6 +88,9 @@ const Login = () => {
                 </button>
               </div>
               
+            </div>
+            <div className="text-center text-gray-200 text-lg">
+              <p>New to Chatty ? Register <Link to="/register" className="text-yellow-300">here</Link></p>
             </div>
           </form>
         </div>

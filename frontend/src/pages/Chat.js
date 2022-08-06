@@ -5,26 +5,34 @@ import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import { allUsersRoute, host } from "../utils/apiRoutes";
 import { io } from "socket.io-client"
+import { useNavigate } from "react-router-dom";
 
-const Chat = ({currentUser}) => {
+const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const navigate = useNavigate()
 
   const socket = useRef()
 
+  useEffect(()=>{
+    if(!localStorage.getItem("chat-user")){
+      navigate("/login")
+    }
+  },[])
 
-//   const [currentUser, setCurrentUser] = useState(undefined);
 
-//   useEffect(() => {
-//     const setCurrent = async () => {
-//       const user = await JSON.parse(localStorage.getItem("chat-user"));
-//       setCurrentUser(user);
-//     //   setCurrentUser(await JSON.parse(localStorage.getItem("chat-user")));
-//       console.log(currentUser);
-//     };
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-//     setCurrent();
-//   }, []);
+  useEffect(() => {
+    const setCurrent = async () => {
+      const user = await JSON.parse(localStorage.getItem("chat-user"));
+      setCurrentUser(user);
+    //   setCurrentUser(await JSON.parse(localStorage.getItem("chat-user")));
+      console.log(currentUser);
+    };
+
+    setCurrent();
+  }, []);
 
   useEffect(() => {
     if(currentUser) {
