@@ -8,7 +8,7 @@ const Contacts = ({contacts, currentUser, changeChat}) => {
         changeChat(contact)
     }
     return <div className="col-span-1">
-        {currentUser && <div className="container grid grid-rows-[10] overflow-hidden h-full bg-gray-500">
+        {currentUser && <div className="container grid grid-rows-[10] overflow-hidden h-screen bg-gray-500">
         <div className="row-span-2 flex items-center gap-4 justify-center">
             <h3 className="text-white uppercase">Chatty</h3>
         </div>

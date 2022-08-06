@@ -1,47 +1,74 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
-import { allUsersRoute } from "../utils/apiRoutes";
+import { allUsersRoute, host } from "../utils/apiRoutes";
+import { io } from "socket.io-client"
 
-const Chat = () => {
-    const [contacts,setContacts] = useState([])
-    const [currentChat,setCurrentChat] = useState(undefined)
-    const [currentUser,setCurrentUser]  = useState(undefined)
+const Chat = ({currentUser}) => {
+  const [contacts, setContacts] = useState([]);
+  const [currentChat, setCurrentChat] = useState(undefined);
 
-    useEffect(()=>{
-        const setCurrent = async () => {
-            setCurrentUser(await JSON.parse(localStorage.getItem("chat-user")))
-        }
+  const socket = useRef()
 
-        setCurrent();
-    },[])
 
-    useEffect(()=>{
-        const setContactsFunction = async () => {
-            const data = await axios.get(`${allUsersRoute}/${currentUser._id}`)
-            setContacts(data.data)
-        }
-        setContactsFunction();
-    },[currentUser])
+//   const [currentUser, setCurrentUser] = useState(undefined);
 
-    const handleChatChange = (chat) => {
-        setCurrentChat(chat)
+//   useEffect(() => {
+//     const setCurrent = async () => {
+//       const user = await JSON.parse(localStorage.getItem("chat-user"));
+//       setCurrentUser(user);
+//     //   setCurrentUser(await JSON.parse(localStorage.getItem("chat-user")));
+//       console.log(currentUser);
+//     };
+
+//     setCurrent();
+//   }, []);
+
+  useEffect(() => {
+    if(currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id)
     }
+  },[currentUser])
 
-    return <div className="h-screen w-screen flex flex-col justify-center items-center gap-4 bg-cyan-900">
-        <div className="h-[85vh] w-[85vw] bg-red-800 grid grid-cols-4">
-            {/* <div className="col-span-1"> */}
-            <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
-            {/* </div> */}
-            {/* <div className="col-span-3"> */}
-            {currentChat === undefined? 
-                <Welcome currentUser={currentUser}/> : <ChatContainer currentUser={currentUser} currentChat={currentChat} />
-            }
-            {/* </div> */}
-        </div>
+  useEffect(() => {
+    const setContactsFunction = async () => {
+      if (currentUser) {
+        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+        setContacts(data.data);
+        console.log(contacts);
+      }
+    };
+    setContactsFunction();
+  }, [currentUser]);
+
+  const handleChatChange = (chat) => {
+    setCurrentChat(chat);
+  };
+
+  return (
+    // <div className="flex h-screen w-screen justify-center items-center py-10 bg-cyan-900">
+    <div className="h-screen w-screen flex flex-col justify-center items-center gap-4 bg-cyan-900 ">
+      <div className=" w-[85vw]  bg-red-800 grid grid-cols-4">
+
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+        />
+
+        {currentChat === undefined ? (
+          <Welcome currentUser={currentUser} />
+        ) : (
+          <ChatContainer currentUser={currentUser} currentChat={currentChat} socket={socket} />
+        )}
+
+      </div>
     </div>
-}
+    // </div>
+  );
+};
 
 export default Chat;

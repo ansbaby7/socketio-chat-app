@@ -9,7 +9,7 @@ const ChatInput = ({handleMessageSend}) => {
             setMsg("");
         }
     }
-    return <div className="container row-span-1 grid place-items-center grid-cols-[20] bg-slate-700 py-0 px-8">
+    return <div className="container row-span-1 grid place-items-center grid-cols-[20] bg-gray-800 py-0 px-8">
         <div className="col-span-8 flex items-center text-white gap-4">
             <div>
 
