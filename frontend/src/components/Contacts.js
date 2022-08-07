@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Logout from "./Logout"
 
 const Contacts = ({contacts, currentUser, changeChat}) => {
     const [currentSelected, setCurrentSelected] = useState(undefined)
@@ -33,12 +34,13 @@ const Contacts = ({contacts, currentUser, changeChat}) => {
 
 
         <div className="bg-violet-800 row-span-2 flex justify-center items-center gap-8">
-            <div>
+            {/* <div>
 
-            </div>
+            </div> */}
             <div>
                 <h2 className="text-gray-200">{currentUser.username}</h2>
             </div>
+            <Logout/>
         </div>
     </div>}
     </div>
